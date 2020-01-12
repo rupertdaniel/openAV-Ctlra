@@ -34,6 +34,10 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct ctlra_midi_t;
 
 /** the callback that will be called for each input event */
@@ -56,5 +60,9 @@ int ctlra_midi_output_write(struct ctlra_midi_t *s, uint8_t nbytes,
 /** Call this to poll for input. This results in the callback getting
  * called once for each input event */
 int ctlra_midi_input_poll(struct ctlra_midi_t *s);
+
+#ifdef __cplusplus
+} /* extern "C" */
+#endif
 
 #endif /* CTLRA_MIDI_H */
