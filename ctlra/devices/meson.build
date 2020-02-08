@@ -1,4 +1,5 @@
-devices_hdr = files('ni_kontrol_x1_mk2.h')
+devices_hdr = files('ni_kontrol_x1_mk2.h', 
+		    'ni_kontrol_z1.h')
 devices_src = files('3dconnexion.c',
                     'ni_kontrol_f1.c',
                     'ni_kontrol_d2.c',
