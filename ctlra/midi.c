@@ -149,3 +149,37 @@ int ctlra_midi_input_poll(struct ctlra_midi_t *s)
 
 	return 0;
 }
+
+int ctlra_midi_connect(struct ctlra_midi_t *s, const char *client_name, int client_port)
+{
+	int res;
+	int client_id = -1;
+
+	snd_seq_client_info_t *client_info;
+	snd_seq_client_info_malloc(&client_info);
+
+	while (snd_seq_query_next_client(s->seq, client_info) == 0) {
+		if (strcmp(snd_seq_client_info_get_name(client_info), client_name) == 0) {
+			client_id = snd_seq_client_info_get_client(client_info);
+			break;
+		}
+	}
+
+	snd_seq_client_info_free(client_info);
+
+	if (client_id < 0) {
+		return 0;
+	}
+
+	res = snd_seq_connect_to(s->seq, s->port_out, client_id, client_port);
+	if (res < 0) {
+		return 0;
+	}
+
+	res = snd_seq_connect_from(s->seq, s->port_in, client_id, client_port);
+	if (res < 0) {
+		return 0;
+	}
+
+	return 1;
+}

@@ -61,6 +61,9 @@ int ctlra_midi_output_write(struct ctlra_midi_t *s, uint8_t nbytes,
  * called once for each input event */
 int ctlra_midi_input_poll(struct ctlra_midi_t *s);
 
+/** Call this function to connect MIDI I/O ports to the given client */
+int ctlra_midi_connect(struct ctlra_midi_t *s, const char *client_name, int client_port);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
