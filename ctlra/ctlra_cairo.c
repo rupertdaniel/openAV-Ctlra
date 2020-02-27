@@ -8,7 +8,10 @@
 #include "impl.h"
 #include "usb.h"
 
+#if __has_include("immintrin.h")
 #include "immintrin.h"
+#endif
+
 
 static inline
 void pixel_convert_from_argb(int r, int g, int b, uint8_t *data)
