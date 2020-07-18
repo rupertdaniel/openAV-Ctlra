@@ -352,6 +352,10 @@ void ni_kontrol_x1_mk2_usb_read_cb(struct ctlra_dev_t *base, uint32_t endpoint,
 {
 	struct ni_kontrol_x1_mk2_t *dev = (struct ni_kontrol_x1_mk2_t *)base;
 	uint8_t *buf = data;
+
+
+
+
 	switch(size) {
 	case 31: {
 		for(uint32_t i = 0; i < SLIDERS_SIZE; i++) {
@@ -433,10 +437,7 @@ void ni_kontrol_x1_mk2_usb_read_cb(struct ctlra_dev_t *base, uint32_t endpoint,
 				.value = v / 1023.f},
 		};
 		struct ctlra_event_t *te2 = {&te};
-		/* v == 0 informs not touched, but on the device tested it
-		 * happens frequently while just slideing, so no event
-		 * is sent when 0 is the value. */
-		if(dev->touchstrip_value != v && v != 0) {
+		if(dev->touchstrip_value != v) {
 			dev->base.event_func(&dev->base, 1, &te2,
 					     dev->base.event_func_userdata);
 			dev->touchstrip_value = v;
